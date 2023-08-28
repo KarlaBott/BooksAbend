@@ -1,0 +1,39 @@
+#title {
+  color: black;
+  font-size: 50px;
+  font-family: 'Great Vibes', cursive;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid black;
+  flex-wrap: wrap;
+}
+
+#navSelections {
+  font-family: 'Quicksand', sans-serif;
+  transition: 0.7s;
+}
+
+.link {
+  text-decoration: none;
+  color: darkgoldenrod;
+  margin: 70px;
+  transition: 0.7s;
+}
+
+.link:hover {
+  text-shadow: 12px 12px 12px grey;
+}
+
+#websiteLogo {
+  height: 50px;
+  border-radius: 90%;
+}
+
+#logoSection {
+  display: flex;
+}

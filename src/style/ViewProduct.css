@@ -1,0 +1,21 @@
+#viewItemSection{
+    display: flex;
+    flex-direction: column;
+    float: right;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 40%;
+   
+}
+
+#vPPhoto{
+display: flex;
+margin: 12px;
+}
+#viewProductPage{
+    display: flex;
+    justify-content: space-between;
+    margin: 12px;
+
+}
