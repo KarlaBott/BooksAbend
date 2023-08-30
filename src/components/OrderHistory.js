@@ -63,6 +63,10 @@ const OrderHistory = ({ purchasedOrder, setPurchasedOrder }) => {
                   </Link>
                 </button>
               </div>
+              <img
+                id="approved"
+                src="https://png.pngtree.com/png-clipart/20221010/original/pngtree-original-approved-stamp-and-badget-design-red-grunge-png-image_8669616.png"
+              />
             </div>
           </div>
         ))}

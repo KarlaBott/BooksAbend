@@ -37,7 +37,7 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
               alt="logo"
             />
 
-            <h1 id="title">Book Wanderer</h1>
+            <h1 id="title">Books Abend</h1>
           </div>
           <div id="navSelections">
             <Link className="link" to="/">
@@ -47,7 +47,7 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
               Products
             </Link>
             <Link className="link" to="/newcart">
-              CART {" ("}
+              Cart {" ("}
               {itemCount}
               {")"}
             </Link>
@@ -63,7 +63,7 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
             )}
             {isLoggedIn && (
               <Link className="link" to="/orderhistory">
-                OrderHistory
+                Order History
               </Link>
             )}
             {isLoggedIn && (

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "../style/Products.css";
+import swal from "sweetalert";
+import { addOneItemToCart } from "../axios-services/prodpage";
 
 const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
   const userId = sessionStorage.getItem("BWUSERID");
@@ -24,33 +26,12 @@ const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
   }, []);
 
   async function addItemToCart(product) {
-    console.log("adding this item to cart", product);
     try {
-      const response = await fetch(`api/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userid: userId,
-          productid: product.id,
-          itemprice: product.price,
-          quantity: 1,
-        }),
-      });
-      const result = await response.json();
-      console.log("addItemToCart:", result);
-      if (result?.orderDetail) {
-        if (result?.orderDetail[0]?.message == "NOT_ENOUGH") {
-          console.log("not enough");
-          alert(
-            "Sorry - there are not more of this item to add to your order."
-          );
-        } else {
-          setItemCount(itemCount + 1);
-          console.log("update itemCount to:", itemCount);
-          alert("Added item to cart!");
-        }
+      const result = await addOneItemToCart(product);
+      console.log("addItemToCart > result:", result);
+      if (result.success) {
+        setItemCount(itemCount + 1);
+        console.log("update itemCount:", itemCount);
       }
       return result;
     } catch (error) {
@@ -60,16 +41,18 @@ const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
 
   return (
     <>
-      <label htmlFor="searchInput" id="searchLabel">
-        Search
-      </label>
-      <input
-        placeholder="search..."
-        type="search"
-        id="searchInput"
-        onChange={(e) => setQuery(e.target.value.toLowerCase())}
-      ></input>
-
+      <div id="searchSection">
+        <img
+          className="searchIcon"
+          src="https://img.icons8.com/?size=512&id=e4NkZ7kWAD7f&format=png"
+        />
+        <input
+          placeholder="search..."
+          type="search"
+          id="searchInput"
+          onChange={(e) => setQuery(e.target.value.toLowerCase())}
+        ></input>
+      </div>
       <div id="productsBody">
         {products
           .filter(
@@ -82,12 +65,14 @@ const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
               <div id="productsContainer" key={product.id}>
                 <div className="productCard">{product.title}</div>
                 <div className="productCard">By: {product.author}</div>
-                <div id="imgSection">
-                  <img
-                    id="productImg"
-                    src={product.imageurl}
-                    alt={product.title}
-                  />
+                <div id="test">
+                  <div id="imgSection">
+                    <img
+                      id="productImg"
+                      src={product.imageurl}
+                      alt={product.title}
+                    />
+                  </div>
                 </div>
                 <div className="productCard">{product.format}</div>
                 <div className="productCard">${product.price}</div>
@@ -108,7 +93,6 @@ const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
                       className="cardButtons"
                       id="cartButton"
                       onClick={() => {
-                        // console.log(product);
                         addItemToCart(product);
                       }}
                     >

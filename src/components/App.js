@@ -15,8 +15,8 @@ import Checkout from "./Checkout";
 import OrderHistory from "./OrderHistory";
 import ViewOrderDetails from "./ViewOrderDetails";
 import Profile from "./Profile";
-import Footer from "./Footer";
 import AdminProducts from "./AdminProducts";
+import Footer from "./Footer";
 
 sessionStorage.setItem("BWUSERID", 1);
 console.log("BWUSERID init:", sessionStorage.getItem("BWUSERID"));
@@ -27,7 +27,7 @@ const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
     sessionStorage.setItem("BWUSERID", 1);
     setIsLoggedIn(false);
   }, [isLoggedIn]);
-  return <Redirect to="/landingPage" />;
+  return <Redirect to="/" />;
 };
 
 const App = () => {
@@ -71,6 +71,8 @@ const App = () => {
           <ViewProduct
             currentProduct={currentProduct}
             setCurrentProduct={setCurrentProduct}
+            itemCount={itemCount}
+            setItemCount={setItemCount}
           />
         </Route>
 

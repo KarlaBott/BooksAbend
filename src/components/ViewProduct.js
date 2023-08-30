@@ -1,32 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "../style/ViewProduct.css";
-//pass currentProduct through this function as prop
+import "../style/Products.css";
+import { addOneItemToCart } from "../axios-services/prodpage";
 
-const ViewProduct = ({ currentProduct }) => {
+const ViewProduct = ({ currentProduct, itemCount, setItemCount }) => {
   console.log("single view has", currentProduct);
   const stockImg = currentProduct.imageurl;
 
   async function addItemToCart(product) {
-    console.log("adding this item to cart", currentProduct);
     try {
-      const response = await fetch(`api/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          quantity: 1,
-          userid: sessionStorage.getItem("BWUSERID"),
-          productid: currentProduct.id,
-          quantity: 1,
-          itemprice: currentProduct.price,
-        }),
-      });
-      const result = await response.json();
-      console.log(result);
-      if (result?.orderDetail) {
-        alert("Added item to cart!");
+      const result = await addOneItemToCart(product);
+      console.log("addItemToCart > result:", result);
+      if (result.success) {
+        setItemCount(itemCount + 1);
+        console.log("update itemCount:", itemCount);
       }
       return result;
     } catch (error) {
@@ -36,8 +24,10 @@ const ViewProduct = ({ currentProduct }) => {
 
   return (
     <>
-      <button>
-        <Link to="/products">Return</Link>
+      <button className="return">
+        <Link to="/products" className="cardButtons">
+          Return
+        </Link>
       </button>
       <div id="viewProductPage">
         <div id="vPPhoto">
@@ -45,10 +35,8 @@ const ViewProduct = ({ currentProduct }) => {
         </div>
         <aside>
           <div id="viewItemSection">
-            <div className="viewProductLine">Title:{currentProduct.title}</div>
-            <div className="viewProductLine">
-              Author:{currentProduct.author}
-            </div>
+            <div className="viewProductLine"> {currentProduct.title}</div>
+            <div className="viewProductLine">By: {currentProduct.author}</div>
             {/* <img src={stockImg} alt={currentProduct.title} id="vpI" /> */}
             <div className="viewProductLine">
               Price: ${currentProduct.price}
@@ -65,6 +53,8 @@ const ViewProduct = ({ currentProduct }) => {
 
             {/* use ternery op ex: if isLoggedIn = true return Cart.js else return Login.js */}
             <button
+              className="cardButtons"
+              id="viewProductATCButton"
               onClick={() => {
                 // console.log(product);
                 addItemToCart(currentProduct);

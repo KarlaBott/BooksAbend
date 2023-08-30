@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../style/Checkout.css";
-import LandingPage_Background from "../Images/BookWanderer_LandingPageBackground.png";
+import books from "../Images/openbook.png";
 
 const Checkout = ({ itemCount, setItemCount }) => {
   const userId = sessionStorage.getItem("BWUSERID");
@@ -51,7 +51,7 @@ const Checkout = ({ itemCount, setItemCount }) => {
       <section id="textCenter">
         <h2>No items to display.</h2>
         <h2>Select PRODUCTS to begin adding items to your order.</h2>
-        <img className="background" src={LandingPage_Background}></img>
+        <img className="background" src={books}></img>
       </section>
     );
   }

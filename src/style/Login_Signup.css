@@ -2,7 +2,7 @@
 #SignupIcon {
     height: 20vh;
     width: 20vh;
-    background-color: white;
+    background-color: whitesmoke;
 }
 
 #Login,
@@ -15,6 +15,7 @@
     margin: 0% auto;
     margin-top: 10vh;
     align-items: center;
+    font-family: 'Lato', sans-serif;
 }
 
 #LoginTitle,

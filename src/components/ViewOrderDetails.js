@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../style/Products.css";
 import "../style/ViewOrderDetails.css";
-
 // generate info for single orderdetail item
 function writeOneItem(pOneItem) {
   return (
@@ -25,8 +24,10 @@ const ViewOrderDetails = ({ purchasedOrder }) => {
   return (
     <>
       <section id="orderHeader">
-        <button id="addPadding">
-          <Link to="/orderhistory">Return to OrderHistory</Link>
+        <button id="addPadding" className="cardButtons">
+          <Link to="/orderhistory" className="cardButtons">
+            Return to OrderHistory
+          </Link>
         </button>
 
         <div>

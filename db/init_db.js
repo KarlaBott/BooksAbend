@@ -171,15 +171,19 @@ async function createInitialUsers() {
 }
 
 async function createInitialProducts() {
-  // create 80 active products
-  for (let i = 0; i < 80; i++) {
+  // create 90 active products
+  for (let i = 0; i < 90; i++) {
     await createProduct(createFakeProductObject(bookGenres));
   }
   //create 5 inactive products
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     let newObj = createFakeProductObject(bookGenres);
     newObj.isactive = false;
     await createProduct(newObj);
+  }
+  // create 90 more active products
+  for (let i = 0; i < 90; i++) {
+    await createProduct(createFakeProductObject(bookGenres));
   }
   console.log("PRODUCTS table seeded");
 }

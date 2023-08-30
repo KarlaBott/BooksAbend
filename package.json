@@ -28,7 +28,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
