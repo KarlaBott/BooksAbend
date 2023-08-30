@@ -4,21 +4,21 @@ import "../style/Nav.css";
 
 const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
   const userId = sessionStorage.getItem("BWUSERID");
+  const userName = sessionStorage.getItem("BWUSERNAME");
 
   useEffect(() => {
     async function fetchCurrentOrder() {
-      console.log("NAV > CURRENT itemCount  ...");
       try {
         const response = await fetch(`api/orders/status/current/${userId}`);
         const result = await response.json();
         if (result?.userOrders?.length > 0) {
-          // if got a valid response, then setItemCount from the first array element (should only be 1 CURRENT order)
+          // if got a valid response, then setItemCount (sh only be 1 element in the array of CURRENT orders)
           setItemCount(result.userOrders[0].totalitemcount);
         } else {
-          // setOrder to an empty array
+          // otherwise, setItemCount to zero
           setItemCount(0);
         }
-        console.log("itemCount:", itemCount);
+        console.log("NAV > itemCount:", itemCount);
       } catch (error) {
         console.error("failed to fetch CURRENT order");
       }
@@ -29,6 +29,9 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
   return (
     <>
       <div id="nav">
+        {isLoggedIn && (
+          <p id="usernameDisplay">Currently logged in as: {userName}</p>
+        )}
         <nav>
           <div id="logoSection">
             <img

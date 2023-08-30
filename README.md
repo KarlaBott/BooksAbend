@@ -23,7 +23,7 @@ $ git init
 2. Create a bare GitHub repo (no `.gitignore`, `README.md`, `CHANGELOG.md`, or license) and copy the ssh address to assign to your local clone with `git remote add origin <paste-your-ssh-address-here>`
 
 3. `npm install` to add project dependencies to your local machine.
-   KB: two additional packages added: npm install @faker-js/faker --save-dev, npm install bcrypt@4.0.1
+   KB: two additional packages added: npm install @faker-js/faker --save-dev, npm install bcrypt@5.1.0
 
 4. Choose a name for your local database instance and edit `db/index.js` to assign the name to `DB_NAME`. Next, run `createdb <your-db-name-goes-here>` from your command line to spin up your database.
    KB: DB_NAME is set to 'bookwander' in db\client.js. So run: createdb bookwander (after running npm install in step 3)
@@ -85,9 +85,15 @@ Rounding things out, we've got the top level `index.js` that creates your Expres
 
 In addition to `start:dev`, `client:build`, `client:dev` and `server:dev`, you have access to `db:build` which rebuilds the database, all the tables, and ensures that there is meaningful data present.
 
+To re-seed the DB: npm run db:build
+To start the server: npm run start
+To start the React client: npm run client:dev
+
 # Deployment
 
-## Setting up Heroku
+## Setting up onRender:
+
+## Setting up Heroku (no longer available for free, so app was deployed OnRender instead)
 
 Setup your heroku project by choosing a site name and provisioning a postgres database. These commands create a heroku project backed by a postgres db instance which will live at https://project-name-goes-here.herokuapp.com. You'll want to replace `project-name-goes-here` with your selected project name.
 

@@ -15,14 +15,20 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
     event.preventDefault();
     let response = await login(Username, Password);
     let curUserid = sessionStorage.getItem("BWUSERID");
-    console.log("Login > BWUSERID:", curUserid);
+    console.log(
+      "Login > ID, NM:",
+      curUserid,
+      sessionStorage.getItem("BWUSERID")
+    );
     if (parseInt(curUserid) > 1) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
     setMessage(response.message);
-    // <Redirect to="/products" />;
+    if (response.user) {
+      <Redirect to="/products" />;
+    }
   }
 
   return (

@@ -19,12 +19,14 @@ import AdminProducts from "./AdminProducts";
 import Footer from "./Footer";
 
 sessionStorage.setItem("BWUSERID", 1);
-console.log("BWUSERID init:", sessionStorage.getItem("BWUSERID"));
+sessionStorage.setItem("BWUSERNAME", "");
+// console.log("BWUSERID init:", sessionStorage.getItem("BWUSERID"));
 
 const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
   useEffect(() => {
     sessionStorage.clear();
     sessionStorage.setItem("BWUSERID", 1);
+    sessionStorage.setItem("BWUSERNAME", "");
     setIsLoggedIn(false);
   }, [isLoggedIn]);
   return <Redirect to="/" />;

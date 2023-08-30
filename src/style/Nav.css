@@ -49,3 +49,11 @@ nav {
 #logoSection {
   display: flex;
 }
+
+#usernameDisplay{
+  font-size: 22px;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+  animation: focus;
+  animation-duration: 0.8s;
+}

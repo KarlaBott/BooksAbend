@@ -118,33 +118,38 @@ const NewCart = ({ itemCount, setItemCount }) => {
   return (
     <>
       <section id="orderHeader">
-        {itemCount < 1 ? (
-          <button id="addPadding" disabled="disabled" className="cardButton">
-            Proceed to Checkout
-          </button>
-        ) : (
-          <button id="addPadding" className="cardButtons">
-            <Link to="/checkout" className="cardButtons">
+        <section id="cartHdrVerbiage">
+          <div>CURRENT cart items for Order ID: {currentOrder.id}</div>
+          <div>Number of Items: {currentOrder.totalitemcount}</div>
+          <div>Order Total: ${currentOrder.ordertotal}</div>
+          <div>
+            {" "}
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -{" "}
+          </div>
+          <div style={{ fontWeight: 800, fontStyle: "italic" }}>
+            {"\n"}ITEMS INCLUDED IN THIS ORDER (shown below) . . .
+          </div>
+        </section>
+
+        <section id="cartHdrButtons">
+          {itemCount < 1 ? (
+            <button id="addPadding" disabled="disabled" className="cardButton">
               Proceed to Checkout
+            </button>
+          ) : (
+            <button id="addPadding" className="cardButtons">
+              <Link to="/checkout" className="cardButtons">
+                Proceed to Checkout
+              </Link>
+            </button>
+          )}
+          <button id="addPadding" className="cardButtons">
+            <Link to="/products" className="cardButtons">
+              Continue Shopping
             </Link>
           </button>
-        )}
-
-        <button id="addPadding" className="cardButtons">
-          <Link to="/products" className="cardButtons">
-            Continue Shopping
-          </Link>
-        </button>
-        <span id="infoMsg">{infoMsg}</span>
-
-        <div>CURRENT cart items for Order ID: {currentOrder.id}</div>
-        <div>Number of Items: {currentOrder.totalitemcount}</div>
-        <div>Order Total: ${currentOrder.ordertotal}</div>
-        <div>
-          {" "}
-          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -{" "}
-        </div>
-        <div>Items included in this order . . .</div>
+          <span id="infoMsg">{infoMsg}</span>
+        </section>
       </section>
       <div id="productsBody">
         {currentOrder.orderdetails.map((orderDetail) => (

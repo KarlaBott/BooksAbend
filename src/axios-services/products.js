@@ -1,6 +1,6 @@
 export async function fetchAllProducts() {
   try {
-    const response = await fetch("api/products/allproduct");
+    const response = await fetch("/api/products/allproduct");
     const data = await response.json();
     return data;
   } catch (error) {
@@ -11,7 +11,7 @@ export async function fetchAllProducts() {
 
 export async function fetchSingleProduct(id) {
   try {
-    const response = await fetch(`api/products/${id}`);
+    const response = await fetch(`/api/products/${id}`);
     const data = await response.json();
     return data;
   } catch (error) {
@@ -22,7 +22,7 @@ export async function fetchSingleProduct(id) {
 
 export async function createProduct(productData) {
   try {
-    const response = await fetch("http://localhost:4000/api/products", {
+    const response = await fetch("/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export async function createProduct(productData) {
 
 export async function editProduct(id, updatedProductData) {
   try {
-    const response = await fetch(`http://localhost:4000/api/products/${id}`, {
+    const response = await fetch(`/api/products/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -66,12 +66,9 @@ export async function editProduct(id, updatedProductData) {
 
 export async function isActiveToFalse(id) {
   try {
-    const response = await fetch(
-      `http://localhost:4000/api/products/delete/${id}`,
-      {
-        method: "PATCH",
-      }
-    );
+    const response = await fetch(`/api/products/delete/${id}`, {
+      method: "PATCH",
+    });
     const data = await response.json();
     return data;
   } catch (error) {
@@ -82,12 +79,9 @@ export async function isActiveToFalse(id) {
 
 export async function isActivateToTrue(id) {
   try {
-    const response = await fetch(
-      `http://localhost:4000/api/products/activate/${id}`,
-      {
-        method: "PATCH",
-      }
-    );
+    const response = await fetch(`/api/products/activate/${id}`, {
+      method: "PATCH",
+    });
     const data = await response.json();
     return data;
   } catch (error) {

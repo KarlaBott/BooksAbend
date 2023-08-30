@@ -2,8 +2,6 @@ const express = require("express");
 const usersRouter = express.Router();
 const bcrypt = require("bcrypt");
 
-
-
 const {
   createUser,
   getAllUsers,
@@ -11,10 +9,6 @@ const {
   updateCurrentGuestOrderForExistingUser,
   updateCurrentGuestOrderForNewUser,
 } = require("../db");
-
-
-const {requireUser} = require('./adminAccess')
-
 
 usersRouter.use((req, res, next) => {
   console.log("A request is being made to /api/users - next() is called ...");
@@ -98,7 +92,7 @@ usersRouter.post("/login", async (req, res, next) => {
     delete user.isadmin;
 
     await updateCurrentGuestOrderForExistingUser(user.id);
-    console.log(user);
+    // console.log(user);
     res.send({ user, message: "SUCCESSFULLY logged in!" });
   } catch (error) {
     next(error);
@@ -106,13 +100,12 @@ usersRouter.post("/login", async (req, res, next) => {
 });
 
 // GET /api/users/me
-usersRouter.get('/me', async (req, res, next) => {
+usersRouter.get("/me", async (req, res, next) => {
   try {
     res.send(req.user);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
-
+});
 
 module.exports = usersRouter;

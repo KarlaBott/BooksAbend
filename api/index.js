@@ -1,7 +1,7 @@
 const apiRouter = require("express").Router();
-const {authenticateWithoutToken} = require('./adminAccess')
+const { authenticateWithoutToken } = require("./adminAccess");
 
-apiRouter.use(authenticateWithoutToken)
+apiRouter.use(authenticateWithoutToken);
 apiRouter.get("/", (req, res, next) => {
   res.send({
     message: "API is under construction!",
@@ -13,9 +13,6 @@ apiRouter.get("/health", (req, res, next) => {
     healthy: true,
   });
 });
-
-
-// place your routers here
 
 // ROUTER: /api/users
 const usersRouter = require("./users");

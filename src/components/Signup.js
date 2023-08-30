@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import TreeIcon from "../Images/TreeIcon.png";
 import { signup } from "../axios-services/users";
 import "../style/Login_Signup.css";
@@ -16,13 +16,16 @@ const Signup = ({ isLoggedIn, setIsLoggedIn }) => {
     event.preventDefault();
     let response = await signup(Username, Password, email);
     let curUserid = sessionStorage.getItem("BWUSERID");
-    console.log("Signup > BWUSERID:", curUserid);
+    // console.log("Signup > BWUSERID:", curUserid);
     if (parseInt(curUserid) > 1) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);
     }
     setMessage(response.message);
+    if (response.user) {
+      <Redirect to="/products" />;
+    }
   }
 
   return (
