@@ -33,6 +33,7 @@ const Signup = ({ isLoggedIn, setIsLoggedIn }) => {
       <input
         autoComplete="username"
         value={Username}
+        autoFocus
         onChange={(e) => {
           setUsername(e.target.value);
         }}

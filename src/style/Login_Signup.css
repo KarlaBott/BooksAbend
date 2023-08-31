@@ -2,6 +2,7 @@
 #SignupIcon {
     height: 20vh;
     width: 20vh;
+    margin-top: 15px;
     background-color: whitesmoke;
 }
 
@@ -83,8 +84,10 @@
 }
 
 #LoginButton:hover,
-#SignupButton:hover {
-    background-color: white;
+#SignupButton:hover,
+#LoginButton:focus,
+#SignupButton:focus {
+    background-color: rgb(232, 227, 227);
     color: black;
     font-weight: 500;
     -webkit-text-stroke-color: black;

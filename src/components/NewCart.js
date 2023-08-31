@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import "../style/Products.css";
 import "../style/ViewOrderDetails.css";
 import books from "../Images/openbook.png";
+import swal from "sweetalert";
 
 const NewCart = ({ itemCount, setItemCount }) => {
   const userId = sessionStorage.getItem("BWUSERID");
   const [currentOrder, setCurrentOrder] = useState([]);
   const [forceRender, setForceRender] = useState(false);
-  const [infoMsg, setInfoMsg] = useState("");
 
   useEffect(() => {
     async function fetchCurrentOrder() {
@@ -52,9 +52,10 @@ const NewCart = ({ itemCount, setItemCount }) => {
       } else {
         // if trying to add, but there are no more available, setInfoMsg
         if (strAddSub == "ADD" && prodResponse.qtyavailable <= curQty) {
-          setInfoMsg(
-            "Insufficient quantity to add more : " + prodResponse.title
-          );
+          swal("", "No more available!", "error", {
+            button: false,
+            timer: 1600,
+          });
           setForceRender(true);
           return;
         }
@@ -148,7 +149,6 @@ const NewCart = ({ itemCount, setItemCount }) => {
               Continue Shopping
             </Link>
           </button>
-          <span id="infoMsg">{infoMsg}</span>
         </section>
       </section>
       <div id="productsBody">

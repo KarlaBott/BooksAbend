@@ -36,6 +36,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
       <label className="LoginLabel">Login</label>
       <input
         autoComplete="username"
+        autoFocus
         value={Username}
         onChange={(e) => {
           setUsername(e.target.value);
