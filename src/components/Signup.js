@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TreeIcon from "../Images/TreeIcon.png";
 import { signup } from "../axios-services/users";
 import "../style/Login_Signup.css";
@@ -9,6 +9,7 @@ const Signup = ({ isLoggedIn, setIsLoggedIn }) => {
   const [Username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  let history = useHistory();
 
   useEffect(() => {}, [isLoggedIn]);
 
@@ -23,9 +24,7 @@ const Signup = ({ isLoggedIn, setIsLoggedIn }) => {
       setIsLoggedIn(false);
     }
     setMessage(response.message);
-    if (response.user) {
-      <Redirect to="/products" />;
-    }
+    if (response.user) history.push("/products");
   }
 
   return (

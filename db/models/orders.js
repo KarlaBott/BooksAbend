@@ -101,7 +101,8 @@ async function attachDetailsToOrders(orders) {
         prod.category AS category
         FROM orderdetails AS od
         JOIN products prod ON prod.id=od.productid
-        WHERE od.orderid=${orderid} ;`;
+        WHERE od.orderid=${orderid}
+        ORDER by od.productid ASC ;`;
 
       let { rows: orderdetails } = await client.query(qryStr);
 

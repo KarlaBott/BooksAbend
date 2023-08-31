@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import TreeIcon from "../Images/TreeIcon.png";
 import { login } from "../axios-services/users";
 import "../style/Login_Signup.css";
@@ -8,17 +8,19 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   const [Password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  let history = useHistory();
 
   useEffect(() => {}, [isLoggedIn]);
 
   async function HandleForm(event) {
     event.preventDefault();
     let response = await login(Username, Password);
+
     let curUserid = sessionStorage.getItem("BWUSERID");
     console.log(
       "Login > ID, NM:",
       curUserid,
-      sessionStorage.getItem("BWUSERID")
+      sessionStorage.getItem("BWUSERNAME")
     );
     if (parseInt(curUserid) > 1) {
       setIsLoggedIn(true);
@@ -26,9 +28,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
       setIsLoggedIn(false);
     }
     setMessage(response.message);
-    if (response.user) {
-      <Redirect to="/products" />;
-    }
+    if (response.user) history.push("/products");
   }
 
   return (

@@ -29,9 +29,6 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
   return (
     <>
       <div id="nav">
-        {isLoggedIn && (
-          <p id="usernameDisplay">Currently logged in as: {userName}</p>
-        )}
         <nav>
           <div id="logoSection">
             <img
@@ -39,8 +36,12 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
               src="https://media.istockphoto.com/id/1328167226/vector/open-book.jpg?s=612x612&w=0&k=20&c=yqfKR7Es5IDuM20rtyg4xZihaGTl2waDtvucK1YCTIw="
               alt="logo"
             />
-
             <h1 id="title">Books Abend</h1>
+            {isLoggedIn && (
+              <p id="usernameDisplay">
+                Signed in as: {"   "} {userName}
+              </p>
+            )}
           </div>
           <div id="navSelections">
             <Link className="link" to="/">

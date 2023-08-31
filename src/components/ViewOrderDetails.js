@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../style/Products.css";
 import "../style/ViewOrderDetails.css";
+
 // generate info for single orderdetail item
 function writeOneItem(pOneItem) {
   return (
@@ -24,29 +25,34 @@ const ViewOrderDetails = ({ purchasedOrder }) => {
   return (
     <>
       <section id="orderHeader">
-        <button id="addPadding" className="cardButtons">
-          <Link to="/orderhistory" className="cardButtons">
-            Return to OrderHistory
-          </Link>
-        </button>
-
-        <div>
-          Details for ORDER ID:{"  "} {purchasedOrder.id}
-        </div>
-        <div>
-          Purchased on:{"  "} {purchasedOrder.lastupdate.substring(0, 10)}
-        </div>
-        <div>
-          Number of Items:{"  "} {purchasedOrder.totalitemcount}
-        </div>
-        <div>
-          Order Total:{"  "} ${purchasedOrder.ordertotal}
-        </div>
-        <div>
-          {" "}
-          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -{" "}
-        </div>
-        <div>Items included in this order . . .</div>
+        <section id="cartHdrVerbiage">
+          <div>
+            Details for ORDER ID:{"  "} {purchasedOrder.id}
+          </div>
+          <div>
+            Purchased on:{"  "} {purchasedOrder.lastupdate.substring(0, 10)}
+          </div>
+          <div>
+            Number of Items:{"  "} {purchasedOrder.totalitemcount}
+          </div>
+          <div>
+            Order Total:{"  "} ${purchasedOrder.ordertotal}
+          </div>
+          <div>
+            {" "}
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -{" "}
+          </div>
+          <div style={{ fontWeight: 800, fontStyle: "italic" }}>
+            {"\n"}ITEMS INCLUDED IN THIS ORDER (shown below) . . .
+          </div>
+        </section>
+        <section id="cartHdrButtons">
+          <button id="addPadding" className="cardButtons">
+            <Link to="/orderhistory" className="cardButtons">
+              Return to OrderHistory
+            </Link>
+          </button>
+        </section>
       </section>
       <div id="productsBody">
         {purchasedOrder.orderdetails.map((orderDetail) => (

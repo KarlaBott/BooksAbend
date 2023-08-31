@@ -29,11 +29,11 @@
     100% {}
  }
 
-#productsContainer:hover{
-    background-color: rgb(171, 169, 169);
-    color: white;
-}
-
+ #productsContainer:hover{
+    background-color: rgb(241, 247, 172);
+    color:black;
+  }
+  
 
 .productCard{
     margin: 6px;
