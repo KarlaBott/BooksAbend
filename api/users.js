@@ -89,7 +89,6 @@ usersRouter.post("/login", async (req, res, next) => {
     }
 
     delete user.password;
-    delete user.isadmin;
 
     await updateCurrentGuestOrderForExistingUser(user.id);
     // console.log(user);

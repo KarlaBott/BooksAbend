@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../style/Nav.css";
 
-const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
+const Nav = ({ isLoggedIn, isAdmin, itemCount, setItemCount }) => {
   const userId = sessionStorage.getItem("BWUSERID");
   const userName = sessionStorage.getItem("BWUSERNAME");
 
@@ -50,11 +50,14 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
             <Link className="link" to="/products">
               Products
             </Link>
-            <Link className="link" to="/newcart">
-              Cart {" ("}
-              {itemCount}
-              {")"}
-            </Link>
+            {!isAdmin && (
+              <Link className="link" to="/newcart">
+                CART {" ("}
+                {itemCount}
+                {")"}
+              </Link>
+            )}
+
             {!isLoggedIn && (
               <Link className="link" to="/login">
                 Login
@@ -65,7 +68,7 @@ const Nav = ({ isLoggedIn, itemCount, setItemCount }) => {
                 SignUp
               </Link>
             )}
-            {isLoggedIn && (
+            {isLoggedIn && !isAdmin && (
               <Link className="link" to="/orderhistory">
                 Order History
               </Link>

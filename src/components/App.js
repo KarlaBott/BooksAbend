@@ -22,11 +22,12 @@ sessionStorage.setItem("BWUSERID", 1);
 sessionStorage.setItem("BWUSERNAME", "");
 // console.log("BWUSERID init:", sessionStorage.getItem("BWUSERID"));
 
-const Logout = ({ isLoggedIn, setIsLoggedIn }) => {
+const Logout = ({ isLoggedIn, setIsLoggedIn, setIsAdmin }) => {
   useEffect(() => {
     sessionStorage.clear();
     sessionStorage.setItem("BWUSERID", 1);
     sessionStorage.setItem("BWUSERNAME", "");
+    setIsAdmin(false);
     setIsLoggedIn(false);
   }, [isLoggedIn]);
   return <Redirect to="/" />;
@@ -37,6 +38,7 @@ const App = () => {
   const [currentProduct, setCurrentProduct] = useState({});
   const [purchasedOrder, setPurchasedOrder] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [itemCount, setItemCount] = useState(0);
 
   useEffect(() => {
@@ -54,6 +56,7 @@ const App = () => {
       <BrowserRouter>
         <Nav
           isLoggedIn={isLoggedIn}
+          isAdmin={isAdmin}
           itemCount={itemCount}
           setItemCount={setItemCount}
         />
@@ -63,6 +66,7 @@ const App = () => {
         </Route>
         <Route path="/products">
           <Products
+            isAdmin={isAdmin}
             currentProduct={currentProduct}
             setCurrentProduct={setCurrentProduct}
             itemCount={itemCount}
@@ -71,6 +75,7 @@ const App = () => {
         </Route>
         <Route path="/viewProduct">
           <ViewProduct
+            isAdmin={isAdmin}
             currentProduct={currentProduct}
             setCurrentProduct={setCurrentProduct}
             itemCount={itemCount}
@@ -79,7 +84,12 @@ const App = () => {
         </Route>
 
         <Route path="/login">
-          <Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Login
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            isAdmin={isAdmin}
+            setIsAdmin={setIsAdmin}
+          />
         </Route>
         <Route path="/signup">
           <Signup isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
@@ -106,7 +116,12 @@ const App = () => {
         </Route>
 
         <Route path="/logout">
-          <Logout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Logout
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            isAdmin={isAdmin}
+            setIsAdmin={setIsAdmin}
+          />
         </Route>
         <Route path="/profile">
           <Profile isLoggedIn={isLoggedIn} />

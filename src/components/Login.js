@@ -4,7 +4,7 @@ import TreeIcon from "../Images/TreeIcon.png";
 import { login } from "../axios-services/users";
 import "../style/Login_Signup.css";
 
-function Login({ isLoggedIn, setIsLoggedIn }) {
+function Login({ isLoggedIn, setIsLoggedIn, setIsAdmin }) {
   const [Password, setPassword] = useState("");
   const [Username, setUsername] = useState("");
   const [message, setMessage] = useState("");
@@ -15,6 +15,7 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
   async function HandleForm(event) {
     event.preventDefault();
     let response = await login(Username, Password);
+    console.log("LI > response:", response);
 
     let curUserid = sessionStorage.getItem("BWUSERID");
     console.log(
@@ -24,6 +25,10 @@ function Login({ isLoggedIn, setIsLoggedIn }) {
     );
     if (parseInt(curUserid) > 1) {
       setIsLoggedIn(true);
+      if (response?.user?.isadmin) {
+        console.log("isAdmin set true");
+        setIsAdmin(true);
+      }
     } else {
       setIsLoggedIn(false);
     }

@@ -35,7 +35,6 @@ const NewCart = ({ itemCount, setItemCount }) => {
 
   async function adjustCart(strAddSub, orderid, productid, curQty) {
     console.log("adjustCart > parm:", strAddSub, orderid, productid, curQty);
-    setInfoMsg("");
     try {
       // get product record for productid
       const prodFetch = await fetch(`api/products/${productid}`);
@@ -50,7 +49,7 @@ const NewCart = ({ itemCount, setItemCount }) => {
           method: "DELETE",
         });
       } else {
-        // if trying to add, but there are no more available, setInfoMsg
+        // if trying to add, but there are no more available, flash an alert
         if (strAddSub == "ADD" && prodResponse.qtyavailable <= curQty) {
           swal("", "No more available!", "error", {
             button: false,
@@ -159,7 +158,6 @@ const NewCart = ({ itemCount, setItemCount }) => {
               <div className="cardButtonSection">
                 <button
                   className="cardButtons"
-                  id="cartButton"
                   onClick={() => {
                     // console.log(product);
                     adjustCart(
@@ -176,7 +174,6 @@ const NewCart = ({ itemCount, setItemCount }) => {
                 </button>
                 <button
                   className="cardButtons"
-                  id="cartButton"
                   onClick={() => {
                     adjustCart(
                       orderDetail.quantity > 1 ? "SUB" : "DEL",
@@ -200,7 +197,6 @@ const NewCart = ({ itemCount, setItemCount }) => {
                 {orderDetail.quantity > 1 && (
                   <button
                     className="cardButtons"
-                    id="cartButton"
                     onClick={() => {
                       adjustCart(
                         "DEL",

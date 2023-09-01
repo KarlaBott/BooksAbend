@@ -3,10 +3,12 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import "../style/Products.css";
 import { addOneItemToCart } from "../axios-services/prodpage";
 
-const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
+const Products = ({ isAdmin, setCurrentProduct, itemCount, setItemCount }) => {
   const userId = sessionStorage.getItem("BWUSERID");
   const [products, SetProducts] = useState([]);
   const [query, setQuery] = useState("");
+  // if logged in as an Admin, then disable AddToCart button - cannot shop as an Admin
+  const disabledButtonText = isAdmin ? "Admin View" : "Out of Stock";
 
   useEffect(() => {
     async function fetchProducts() {
@@ -75,6 +77,11 @@ const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
                 </div>
                 <div className="productCard">{product.format}</div>
                 <div className="productCard">${product.price}</div>
+                {isAdmin && (
+                  <div className="productCard">
+                    Cur Qty: {product.qtyavailable}
+                  </div>
+                )}
                 <div className="cardButtonSection">
                   <button
                     className="cardButtons"
@@ -87,26 +94,19 @@ const Products = ({ setCurrentProduct, itemCount, setItemCount }) => {
                       See Details
                     </Link>
                   </button>
-                  {product.qtyavailable > 0 ? (
+                  {product.qtyavailable > 0 && !isAdmin ? (
                     <button
                       className="cardButtons"
-                      id="cartButton"
                       onClick={() => {
                         addItemToCart(product);
                       }}
                     >
-                      <Link
-                        className="cardButtons"
-                        id="cartButton"
-                        to="/products"
-                      >
+                      <Link className="cardButtons" to="/products">
                         Add to Cart
                       </Link>
                     </button>
                   ) : (
-                    <button disabled="disabled" className="cartButton">
-                      Out of Stock
-                    </button>
+                    <button disabled="disabled">{disabledButtonText}</button>
                   )}
                 </div>
               </div>
