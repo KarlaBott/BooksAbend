@@ -71,7 +71,7 @@ const Nav = ({ isLoggedIn, isAdmin, itemCount, setItemCount }) => {
                 SignUp
               </Link>
             )}
-            {isLoggedIn && isAdmin && (
+            {isLoggedIn && !isAdmin && (
               <Link className="link" to="/orderhistory">
                 Order History
               </Link>
