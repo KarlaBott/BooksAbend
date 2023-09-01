@@ -45,6 +45,11 @@
     align-items: flex-start;
     padding: 20px;
   }
+
+  #profDetails{
+    display:flex;
+    flex-direction: column;
+  }
 .left-profile {
     flex: 1;
     padding: 40px;

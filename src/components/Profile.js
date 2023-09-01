@@ -7,6 +7,42 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import userImg from "../Images/userimg.jpeg";
 import OrderHistory from "./OrderHistory";
 
+const bookGenres = [
+  "Action and Adventure",
+  "Art and Photography",
+  "Autobiography and Memoir",
+  "Biography",
+  "Business and Money",
+  "Childrens",
+  "Cooking",
+  "Crafts and Hobbies",
+  "Dystopian",
+  "Education and Teaching",
+  "Family and Relationships",
+  "Fantasy",
+  "Food and Drink",
+  "Graphic Novel",
+  "Health and Fitness",
+  "Historical Fiction",
+  "History",
+  "Horror",
+  "Humor and Entertainment",
+  "Law and Criminology",
+  "Magical Realism",
+  "Motivational and Inspirational",
+  "Mystery and Detective",
+  "Politics and Social Science",
+  "Religion and Spirituality",
+  "Romance",
+  "Science Fiction",
+  "Self-Help and Personal Development",
+  "Short Story",
+  "Thriller and Suspense",
+  "Travel",
+  "True Crime",
+  "Young Adult",
+];
+
 const Profile = ({ isLoggedIn }) => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
@@ -168,6 +204,7 @@ const Profile = ({ isLoggedIn }) => {
         onChange={createPostHandleInputChange}
       >
         <option value="">Select a category</option>
+
         <option value="Action and Adventure">Action and Adventure</option>
         <option value="Art and Photography">Art and Photography</option>
         <option value="Autobiography and Memoir">
@@ -273,13 +310,17 @@ const Profile = ({ isLoggedIn }) => {
 
         <div className="profile-info">
           <img src={userImg} alt="Profile" width="100%" />
-          <h1 className="profile-username">Username: {profileData.username}</h1>
-          <p className="profile-email">
-            Email address: {profileData.useremail}
-          </p>
-          <p className="profile-status">
-            Status: {profileData.isadmin ? "Admin" : "Member"}
-          </p>
+          <div id="profDetails">
+            <h1 className="profile-username">
+              Username: {profileData.username}
+            </h1>
+            <p className="profile-email">
+              Email address: {profileData.useremail}
+            </p>
+            <p className="profile-status">
+              Status: {profileData.isadmin ? "Admin" : "Member"}
+            </p>
+          </div>
         </div>
       </div>
 

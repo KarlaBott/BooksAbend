@@ -12,7 +12,7 @@ const Products = ({ isAdmin, setCurrentProduct, itemCount, setItemCount }) => {
 
   useEffect(() => {
     async function fetchProducts() {
-      console.log("attempting to fectch products....");
+      console.log("attempting to fetch products....");
       try {
         const response = await fetch(`api/products`);
         const result = await response.json();
