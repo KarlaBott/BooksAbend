@@ -39,7 +39,10 @@ const Nav = ({ isLoggedIn, isAdmin, itemCount, setItemCount }) => {
             <h1 id="title">Books Abend</h1>
             {isLoggedIn && (
               <p id="usernameDisplay">
-                Signed in as: {"   "} {userName}
+                Signed in as: {"   "}{" "}
+                <span style={{ fontWeight: 999, fontStyle: "italic" }}>
+                  {userName}
+                </span>
               </p>
             )}
           </div>
@@ -68,7 +71,7 @@ const Nav = ({ isLoggedIn, isAdmin, itemCount, setItemCount }) => {
                 SignUp
               </Link>
             )}
-            {isLoggedIn && !isAdmin && (
+            {isLoggedIn && isAdmin && (
               <Link className="link" to="/orderhistory">
                 Order History
               </Link>

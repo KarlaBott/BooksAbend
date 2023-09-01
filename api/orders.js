@@ -54,7 +54,6 @@ ordersRouter.get("/:username", async (req, res, next) => {
 ordersRouter.get("/id/:id", async (req, res, next) => {
   console.log("A request is being made to GET /orders/id/:id ...");
   console.log("req.params : ", req.params);
-  console.log("req.body : ", req.body);
 
   try {
     const userOrder = await getOrderByOrderId({ id: parseInt(req.params.id) });
@@ -71,7 +70,6 @@ ordersRouter.get("/status/:status/:userid", async (req, res, next) => {
     "A request is being made to GET /orders/status/:status/:userid ..."
   );
   console.log("req.params : ", req.params);
-  console.log("req.body : ", req.body);
 
   try {
     const userOrders = await getUserOrdersByStatus(

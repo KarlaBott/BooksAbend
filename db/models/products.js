@@ -6,15 +6,13 @@ const client = require("../client");
 // add your database adapter fns here
 module.exports = {
   createProduct,
+  getAllCategories,
   getAllProducts,
   getProductsById,
-  getProductsByAuthor,
   getAllActiveProducts,
-  getProductsByTitle,
   updateProduct,
-  destroyProduct,
   deactivateProduct,
-  activateProduct
+  activateProduct,
 };
 
 async function createProduct({
@@ -56,6 +54,7 @@ async function createProduct({
   }
 }
 
+// return an array of ALL  products, for Admin view/use
 async function getAllProducts() {
   try {
     const { rows: products } = await client.query(
@@ -66,6 +65,35 @@ async function getAllProducts() {
     throw error;
   }
 }
+
+// return an array of ACTIVE products (isactive=true), for customer view
+async function getAllActiveProducts() {
+  try {
+    const { rows: products } = await client.query(
+      `SELECT * FROM products WHERE isactive=TRUE
+       ORDER BY title ASC;`
+    );
+
+    return products;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// return an array categorynames
+async function getAllCategories() {
+  try {
+    const { rows: categories } = await client.query(
+      `SELECT * FROM categories
+       ORDER BY categoryname ASC;`
+    );
+
+    return categories;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // This function select and return the product matches to the id
 async function getProductsById(id) {
   try {
@@ -79,39 +107,6 @@ async function getProductsById(id) {
       [id]
     );
     return product || null;
-  } catch (error) {
-    throw error;
-  }
-}
-async function getProductsByAuthor(author) {
-  try {
-    const {
-      rows: [product],
-    } = await client.query(
-      `
-      SELECT * FROM products
-      WHERE author = $1
-    `,
-      [author]
-    );
-    return product;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function getProductsByTitle(title) {
-  try {
-    const {
-      rows: [product],
-    } = await client.query(
-      `
-      SELECT * FROM products
-      WHERE title = $1
-    `,
-      [title]
-    );
-    return product;
   } catch (error) {
     throw error;
   }
@@ -135,7 +130,6 @@ async function updateProduct(id, updates) {
     const values = [id];
 
     fieldsToBeUpdated.forEach((field) => {
-
       if (updates[field] !== undefined) {
         updateFields.push(`${field} = $${values.length + 1}`);
         values.push(updates[field]);
@@ -158,42 +152,6 @@ async function updateProduct(id, updates) {
       values
     );
     return product;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function destroyProduct(id) {
-  try {
-    const {
-      rows: [deleteProduct],
-    } = await client.query(
-      `
-    DELETE FROM products
-    WHERE id = $1
-    RETURNING *;
-  `,
-      [id]
-    );
-
-    if (!deleteProduct) {
-      throw new Error(`Product with ID ${id} not found.`);
-    }
-
-    return deleteProduct;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function getAllActiveProducts() {
-  try {
-    const { rows: products } = await client.query(
-      `SELECT * FROM products WHERE isactive=TRUE
-       ORDER BY title ASC;`
-    );
-
-    return products;
   } catch (error) {
     throw error;
   }

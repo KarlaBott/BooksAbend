@@ -1,53 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "../style/Profile.css";
-import { fetchAllUsers, fetchMyProfile } from "../axios-services/users";
-import { createProduct } from "../axios-services/products";
+import { fetchAllUsers } from "../axios-services/users";
+import { createProduct, fetchAllCategories } from "../axios-services/products";
 import Modal from "./Modal";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import userImg from "../Images/userimg.jpeg";
-import OrderHistory from "./OrderHistory";
-
-const bookGenres = [
-  "Action and Adventure",
-  "Art and Photography",
-  "Autobiography and Memoir",
-  "Biography",
-  "Business and Money",
-  "Childrens",
-  "Cooking",
-  "Crafts and Hobbies",
-  "Dystopian",
-  "Education and Teaching",
-  "Family and Relationships",
-  "Fantasy",
-  "Food and Drink",
-  "Graphic Novel",
-  "Health and Fitness",
-  "Historical Fiction",
-  "History",
-  "Horror",
-  "Humor and Entertainment",
-  "Law and Criminology",
-  "Magical Realism",
-  "Motivational and Inspirational",
-  "Mystery and Detective",
-  "Politics and Social Science",
-  "Religion and Spirituality",
-  "Romance",
-  "Science Fiction",
-  "Self-Help and Personal Development",
-  "Short Story",
-  "Thriller and Suspense",
-  "Travel",
-  "True Crime",
-  "Young Adult",
-];
 
 const Profile = ({ isLoggedIn }) => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
   const [isPostSubmitted, setIsPostSubmitted] = useState(false);
   const [users, setUsers] = useState([]);
+  const [categoryNames, setCategoryNames] = useState([]);
   const [profileData, setProfileData] = useState({});
   const [productData, setProductData] = useState({
     title: "",
@@ -102,6 +66,7 @@ const Profile = ({ isLoggedIn }) => {
 
   useEffect(() => {
     getUsers();
+    getCategoryNames();
   }, []);
 
   const getUsers = async () => {
@@ -119,7 +84,16 @@ const Profile = ({ isLoggedIn }) => {
         }
       }
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.error("ERROR fetchAllUsers: ", error);
+    }
+  };
+
+  const getCategoryNames = async () => {
+    try {
+      const data = await fetchAllCategories();
+      setCategoryNames(data.categories);
+    } catch (error) {
+      console.error("ERROR fetchAllCategories: ", error);
     }
   };
 
@@ -204,52 +178,11 @@ const Profile = ({ isLoggedIn }) => {
         onChange={createPostHandleInputChange}
       >
         <option value="">Select a category</option>
-
-        <option value="Action and Adventure">Action and Adventure</option>
-        <option value="Art and Photography">Art and Photography</option>
-        <option value="Autobiography and Memoir">
-          Autobiography and Memoir
-        </option>
-        <option value="Biography">Biography</option>
-        <option value="Business and Money">Business and Money</option>
-        <option value="Children">Children</option>
-        <option value="Cooking">Cooking</option>
-        <option value="Crafts and Hobbies">Crafts and Hobbies</option>
-        <option value="Dystopian">Dystopian</option>
-        <option value="Education and Teaching">Education and Teaching</option>
-        <option value="Family and Relationships">
-          Family and Relationships
-        </option>
-        <option value="Fantasy">Fantasy</option>
-        <option value="Food and Drink">Food and Drink</option>
-        <option value="Graphic Novel">Graphic Novel</option>
-        <option value="Health and Fitness">Health and Fitness</option>
-        <option value="Historical Fiction">Historical Fiction</option>
-        <option value="History">History</option>
-        <option value="Horror">Horror</option>
-        <option value="Humor and Entertainment">Humor and Entertainment</option>
-        <option value="Law and Criminology">Law and Criminology</option>
-        <option value="Magical Realism">Magical Realism</option>
-        <option value="Motivational and Inspirational">
-          Motivational and Inspirational
-        </option>
-        <option value="Mystery and Detective">Mystery and Detective</option>
-        <option value="Politics and Social Science">
-          Politics and Social Science
-        </option>
-        <option value="Religion and Spirituality<">
-          Religion and Spirituality
-        </option>
-        <option value="Romance">Romance</option>
-        <option value="Science Fiction">Science Fiction</option>
-        <option value="Self-Help and Personal Development">
-          Self-Help and Personal Development
-        </option>
-        <option value="Short Story">Short Story</option>
-        <option value="Thriller and Suspense">Thriller and Suspense</option>
-        <option value="Travel">Travel</option>
-        <option value="True Crime">True Crime</option>
-        <option value="Young Adult">Young Adult</option>
+        {categoryNames.map((item, idx) => (
+          <option key={idx} value={item.categoryname}>
+            {item.categoryname}
+          </option>
+        ))}
       </select>
       <br />
       <label className="form-label">Format:</label>
@@ -355,8 +288,9 @@ const Profile = ({ isLoggedIn }) => {
           </section>
         ) : (
           <section>
-            <h1>Order History</h1>
-            <OrderHistory />
+            <Link className="link" id="cardButtons" to="/orderhistory">
+              View Order History
+            </Link>
           </section>
         )}
       </div>

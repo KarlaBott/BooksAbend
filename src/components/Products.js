@@ -48,7 +48,7 @@ const Products = ({ isAdmin, setCurrentProduct, itemCount, setItemCount }) => {
           src="https://img.icons8.com/?size=512&id=e4NkZ7kWAD7f&format=png"
         />
         <input
-          placeholder="search..."
+          placeholder="search (title or author)..."
           type="search"
           id="searchInput"
           onChange={(e) => setQuery(e.target.value.toLowerCase())}

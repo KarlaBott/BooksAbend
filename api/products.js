@@ -3,13 +3,14 @@ const productsRouter = express.Router();
 // NOTE:  *ONLY* and Admin user is allowed to createProduct or updateProduct
 //  Products are NEVER deleted, the "isactive" boolean is set to FALSE when a product is no longer available
 const {
-  getAllActiveProducts,
-  updateProduct,
-  createProduct,
-  getProductsById,
-  deactivateProduct,
   activateProduct,
+  createProduct,
+  deactivateProduct,
+  getAllActiveProducts,
+  getAllCategories,
   getAllProducts,
+  getProductsById,
+  updateProduct,
 } = require("../db");
 
 const { adminAccess } = require("./adminAccess");
@@ -33,6 +34,14 @@ productsRouter.get("/allproduct", async (req, res, next) => {
   console.log("A request is being made to GET /api/allproduct ...");
   const products = await getAllProducts();
   res.send({ products });
+});
+
+// GET /api/products/categories - Return a list of all categories
+productsRouter.get("/categories", async (req, res, next) => {
+  console.log("A request is being made to GET /api/products/categories ...");
+
+  const categories = await getAllCategories();
+  res.send({ categories });
 });
 
 // POST /api/products - Create new products.

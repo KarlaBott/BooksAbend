@@ -9,6 +9,18 @@ export async function fetchAllProducts() {
   }
 }
 
+export async function fetchAllCategories() {
+  try {
+    const response = await fetch("/api/products/categories");
+    const data = await response.json();
+    console.log("fetchCat > data:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
+}
+
 export async function fetchSingleProduct(id) {
   try {
     const response = await fetch(`/api/products/${id}`);
