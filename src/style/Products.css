@@ -117,7 +117,7 @@
     width: 120px;
 }
 
-#formatFilter {
+#formatFilter, #catFilter {
     align-items: center;
     background-color: lightgrey;
     border-radius: 10px;

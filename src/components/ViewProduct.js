@@ -45,7 +45,7 @@ const ViewProduct = ({ isAdmin, currentProduct, itemCount, setItemCount }) => {
               Price: ${currentProduct.price}
             </div>
             <div className="viewProductLine">
-              Format: {currentProduct.format}
+              {currentProduct.format}, {currentProduct.category}
             </div>
             <div className="viewProductLine">
               Quantity Available: {currentProduct.qtyavailable}
