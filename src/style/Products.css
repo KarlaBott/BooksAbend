@@ -127,6 +127,7 @@
     height: fit-content;
     justify-content: center;
     margin: 6px;
+    padding: 5px;
     width:fit-content;
 }
 option {
