@@ -52,9 +52,12 @@ function createFakeFixedAdmUser(curUser) {
 const bookCats = ["Hardback", "Paperback", "Audio"];
 
 function createFakeProductObject(bookArray) {
+  let lName = faker.person.lastName();
+  let newName = lName;
+  if (lName.indexOf("-") > 0) newName = lName.substring(0, lName.indexOf("-"));
   return {
     title: faker.commerce.productName(),
-    author: faker.person.firstName() + " " + faker.person.lastName(),
+    author: faker.person.firstName() + " " + newName,
     price: faker.number.float({ min: 1, max: 85, precision: 0.01 }),
     category: faker.helpers.arrayElement(bookArray),
     format: faker.helpers.arrayElement(bookCats),

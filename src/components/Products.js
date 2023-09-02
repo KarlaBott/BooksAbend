@@ -1,30 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 import "../style/Products.css";
 import { addOneItemToCart } from "../axios-services/prodpage";
 
 const Products = ({ isAdmin, setCurrentProduct, itemCount, setItemCount }) => {
   const userId = sessionStorage.getItem("BWUSERID");
-  const [products, SetProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [query, setQuery] = useState("");
+  const [selFormat, setSelFormat] = useState("All");
+  const [forceRender, setForceRender] = useState(false);
+  const [fullProducts, setFullProducts] = useState([]);
+
   // if logged in as an Admin, then disable AddToCart button - cannot shop as an Admin
   const disabledButtonText = isAdmin ? "Admin View" : "Out of Stock";
 
-  useEffect(() => {
-    async function fetchProducts() {
-      console.log("attempting to fetch products....");
-      try {
-        const response = await fetch(`api/products`);
-        const result = await response.json();
-        const productData = result.products;
-        // console.log(result);
-        SetProducts(productData);
-      } catch (error) {
-        console.error("failed to fetch products");
-      }
+  const bookFormats = ["Audio", "Hardback", "Paperback"];
+
+  const fetchProducts = async () => {
+    console.log("attempting fetchProducts ....");
+    try {
+      const response = await fetch(`api/products`);
+      const result = await response.json();
+      const productData = result.products;
+      console.log(result);
+      setProducts(productData);
+      setFullProducts(productData);
+    } catch (error) {
+      console.error("failed to fetch products");
     }
-    fetchProducts();
-  }, []);
+  };
+
+  useEffect(() => {
+    if (fullProducts.length < 1) {
+      fetchProducts();
+    }
+    if (bookFormats.includes(selFormat)) {
+      setProducts(fullProducts.filter((el) => el.format == selFormat));
+    } else {
+      setProducts(fullProducts);
+    }
+    setForceRender(false);
+  }, [forceRender]);
 
   async function addItemToCart(product) {
     try {
@@ -40,6 +56,18 @@ const Products = ({ isAdmin, setCurrentProduct, itemCount, setItemCount }) => {
     }
   }
 
+  const selFormatHandler = (ev) => {
+    let formatChoice = ev.target.value;
+    ev.preventDefault();
+    if (bookFormats.includes(formatChoice)) {
+      setSelFormat(formatChoice);
+    } else {
+      setSelFormat("All");
+    }
+    console.log("selFormatHandler > ", formatChoice);
+    setForceRender(true);
+  };
+
   return (
     <>
       <div id="searchSection">
@@ -53,6 +81,20 @@ const Products = ({ isAdmin, setCurrentProduct, itemCount, setItemCount }) => {
           id="searchInput"
           onChange={(e) => setQuery(e.target.value.toLowerCase())}
         ></input>
+        <label htmlFor="formatFilter">Format:</label>
+        <select
+          className="form-select"
+          name="format"
+          id="formatFilter"
+          onChange={selFormatHandler}
+        >
+          <option value="All">All Formats</option>
+          {bookFormats.map((item, idx) => (
+            <option key={idx} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
       </div>
       <div id="productsBody">
         {products

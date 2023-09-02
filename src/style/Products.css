@@ -78,17 +78,7 @@
     background-image: url(https://image.slidesdocs.com/responsive-images/docs/paper-with-a-vintage-kraft-texture-and-golden-border-pattern-page-border-background-word-template_25b1033c94__1131_1600.jpg);
     background-position: center;
     border-right: 1px dashed #877253;
-   /* border-radius: 3px; */
-   /* background: #E0C9A6; */
-   /* border-bottom: 3px dashed black; */
-    /* padding-right:2px; */
-   /* padding: 1px; */
-   /* margin-left: -4px; */
-   /* margin-top: -4px; */
-   
 }
-
-
 
 #searchLabel{
     display: none;
@@ -125,4 +115,28 @@
 }
 #approved{
     width: 120px;
+}
+
+#formatFilter {
+    align-items: center;
+    background-color: lightgrey;
+    border-radius: 10px;
+    border: 2px solid black;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+    height: fit-content;
+    justify-content: center;
+    margin: 6px;
+    width:fit-content;
+}
+option {
+    padding: 3px;
+    background-color: rgb(242, 242, 122);
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
+}
+label {
+    padding-left: 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
 }
