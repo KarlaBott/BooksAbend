@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../style/Profile.css";
 import { fetchAllUsers } from "../axios-services/users";
-import { createProduct, fetchAllCategories } from "../axios-services/products";
+import { createProduct } from "../axios-services/products";
 import Modal from "./Modal";
 import { Link } from "react-router-dom";
 import userImg from "../Images/userimg.jpeg";
 
-const Profile = ({ isLoggedIn }) => {
+const Profile = ({ isLoggedIn, categoryNames }) => {
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
   const [isPostSubmitted, setIsPostSubmitted] = useState(false);
   const [users, setUsers] = useState([]);
-  const [categoryNames, setCategoryNames] = useState([]);
   const [profileData, setProfileData] = useState({});
   const [productData, setProductData] = useState({
     title: "",
@@ -66,7 +65,6 @@ const Profile = ({ isLoggedIn }) => {
 
   useEffect(() => {
     getUsers();
-    getCategoryNames();
   }, []);
 
   const getUsers = async () => {
@@ -87,17 +85,6 @@ const Profile = ({ isLoggedIn }) => {
       console.error("ERROR fetchAllUsers: ", error);
     }
   };
-
-  const getCategoryNames = async () => {
-    try {
-      const data = await fetchAllCategories();
-      setCategoryNames(data.categories);
-    } catch (error) {
-      console.error("ERROR fetchAllCategories: ", error);
-    }
-  };
-
-  //Checking if user is logged in.
 
   if (!isLoggedIn) {
     return (

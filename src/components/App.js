@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 // getAPIHealth is defined in our axios-services directory index.js
 import { getAPIHealth } from "../axios-services";
+import { fetchAllCategories } from "../axios-services/products";
 import "../style/App.css";
 
 import LandingPage from "./LandingPage";
@@ -35,11 +36,27 @@ const Logout = ({ isLoggedIn, setIsLoggedIn, setIsAdmin }) => {
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
+  // categoryNames - used to present a list of available book categories
+  const [categoryNames, setCategoryNames] = useState([]);
+  // currentProducts shared between /products and /viewproducts
   const [currentProduct, setCurrentProduct] = useState({});
-  const [purchasedOrder, setPurchasedOrder] = useState({});
+  // isLoggedIn - is the current user logged in?
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // isAdmin - is the currently logged in user an Admin user?
   const [isAdmin, setIsAdmin] = useState(false);
+  // itemCount - number of items in the CURRENT order/cart
   const [itemCount, setItemCount] = useState(0);
+  // purchasedOrder - shared between /orderhistory and /vieworderdetails
+  const [purchasedOrder, setPurchasedOrder] = useState({});
+
+  const getCategoryNames = async () => {
+    try {
+      const data = await fetchAllCategories();
+      setCategoryNames(data.categories);
+    } catch (error) {
+      console.error("ERROR fetchAllCategories: ", error);
+    }
+  };
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -49,7 +66,8 @@ const App = () => {
       const { healthy } = await getAPIHealth();
       setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
     };
-  });
+    getCategoryNames();
+  }, []);
 
   return (
     <>
@@ -64,6 +82,7 @@ const App = () => {
         <Route exact path="/">
           <LandingPage />
         </Route>
+
         <Route path="/products">
           <Products
             isAdmin={isAdmin}
@@ -71,8 +90,10 @@ const App = () => {
             setCurrentProduct={setCurrentProduct}
             itemCount={itemCount}
             setItemCount={setItemCount}
+            categoryNames={categoryNames}
           />
         </Route>
+
         <Route path="/viewProduct">
           <ViewProduct
             isAdmin={isAdmin}
@@ -98,12 +119,14 @@ const App = () => {
         <Route path="/checkout">
           <Checkout itemCount={itemCount} setItemCount={setItemCount} />
         </Route>
+
         <Route path="/orderHistory">
           <OrderHistory
             purchasedOrder={purchasedOrder}
             setPurchasedOrder={setPurchasedOrder}
           />
         </Route>
+
         <Route path="/viewOrderDetails">
           <ViewOrderDetails
             purchasedOrder={purchasedOrder}
@@ -115,6 +138,13 @@ const App = () => {
           <NewCart itemCount={itemCount} setItemCount={setItemCount} />
         </Route>
 
+        <Route path="/profile">
+          <Profile isLoggedIn={isLoggedIn} categoryNames={categoryNames} />
+        </Route>
+        <Route path="/adminproducts">
+          <AdminProducts isLoggedIn={isLoggedIn} />
+        </Route>
+
         <Route path="/logout">
           <Logout
             isLoggedIn={isLoggedIn}
@@ -122,12 +152,6 @@ const App = () => {
             isAdmin={isAdmin}
             setIsAdmin={setIsAdmin}
           />
-        </Route>
-        <Route path="/profile">
-          <Profile isLoggedIn={isLoggedIn} />
-        </Route>
-        <Route path="/adminproducts">
-          <AdminProducts isLoggedIn={isLoggedIn} />
         </Route>
       </BrowserRouter>
       <div id="footerSection">{/* <Footer /> */}</div>
