@@ -18,7 +18,7 @@
   
   .modal-content {
     background-color: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     max-height: 80%; 
@@ -26,16 +26,16 @@
     position: relative; 
   }
   .modal-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
   .modal-close {
     position: absolute;
     top: 10px;
     right: 10px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 15px;
   }
   
   
@@ -112,11 +112,12 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 th, td {
-  padding: 10px;
+  padding: 3px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -132,15 +133,15 @@ tbody tr:hover {
 
 .profile-button {
   display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 5px 10px;
+  font-size: 14px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .admin-profile {
-  padding: 20px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #fff;
@@ -148,14 +149,13 @@ tbody tr:hover {
 }
 .admin-title {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
 }
 .admin-profile h4 {
   cursor: pointer;
-  margin: 10px 0;
   font-size: large;
-  margin: 20px;
+  margin: 10px;
   text-decoration: none;
 }
 .all-products-link:not(.all-product) {
@@ -188,32 +188,31 @@ tbody tr:hover {
 }
 
 .modal-form {
-  width: 400px; 
-
+  width: 450px; 
   margin: 0 auto;
 }
 
 .form-label {
   display: block;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin: 2px;
 }
 
 .form-input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1.5px solid #ccc;
+  padding: 3px;
+  margin-bottom: 6px;
+  border: 2px solid #ccc;
   border-radius: 4px;
 }
 
 .form-select {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
+  padding: 6px;
+  margin-bottom: 6px;
   border: 1.5px solid #ccc;
   border-radius: 4px;
   background-color: #fff; 
-  font-size: 14px; 
+  font-size: 12px; 
   color: #333; 
 }

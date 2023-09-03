@@ -41,7 +41,9 @@ async function createUser({ username, useremail, password, isadmin }) {
 async function getAllUsers() {
   try {
     // select and return an array of all users
-    const { rows: users } = await client.query(`SELECT * FROM users;`);
+    const { rows: users } = await client.query(`
+    SELECT * FROM users
+    ORDER BY isadmin ASC, username ASC;`);
     // remove the password for each
     for (let i = 0; i < users.length; i++) {
       delete users[i].password;

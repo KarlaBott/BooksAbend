@@ -9,7 +9,7 @@ import Modal from "./Modal";
 import "../style/Profile.css";
 import { fetchAllUsers } from "../axios-services/users";
 
-const AdminProducts = ({ isLoggedIn }) => {
+const AdminProducts = ({ isLoggedIn, categoryNames }) => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -26,12 +26,16 @@ const AdminProducts = ({ isLoggedIn }) => {
     qtyavailable: "",
     imageurl: "",
   });
+
+  const bookFormats = ["Audio", "Hardback", "Paperback"];
+
   const handleEdit = (productId) => {
     const productToEdit = products.find((product) => product.id === productId);
     setSelectedProduct(productToEdit);
     setEditedProduct(productToEdit);
     setIsEditModalOpen(true);
   };
+
   const handleEditModalClose = () => {
     setIsEditModalOpen(false);
     setSelectedProduct(null);
@@ -135,6 +139,7 @@ const AdminProducts = ({ isLoggedIn }) => {
                 <th>Id</th>
                 <th>Title</th>
                 <th>Author</th>
+                <th>Format</th>
                 <th>Price</th>
                 <th>QtyAvl</th>
                 <th>Active</th>
@@ -146,6 +151,7 @@ const AdminProducts = ({ isLoggedIn }) => {
                   <td>{product.id}</td>
                   <td>{product.title}</td>
                   <td>{product.author}</td>
+                  <td>{product.format}</td>
                   <td>${product.price}</td>
                   <td>{product.qtyavailable}</td>
                   <td>{product.isactive ? "Active" : "INACTIVE"}</td>
@@ -223,9 +229,8 @@ const AdminProducts = ({ isLoggedIn }) => {
                 />
                 <br />
                 <label className="form-label">Category:</label>
-                <input
-                  className="form-input"
-                  type="text"
+                <select
+                  className="form-select"
                   name="category"
                   value={editedProduct.category}
                   onChange={(e) =>
@@ -234,12 +239,18 @@ const AdminProducts = ({ isLoggedIn }) => {
                       category: e.target.value,
                     })
                   }
-                />
+                >
+                  <option value="">Select a Category</option>
+                  {categoryNames.map((item, idx) => (
+                    <option key={idx} value={item.categoryname}>
+                      {item.categoryname}
+                    </option>
+                  ))}
+                </select>
                 <br />
                 <label className="form-label">Format:</label>
-                <input
-                  className="form-input"
-                  type="text"
+                <select
+                  className="form-select"
                   name="format"
                   value={editedProduct.format}
                   onChange={(e) =>
@@ -248,7 +259,14 @@ const AdminProducts = ({ isLoggedIn }) => {
                       format: e.target.value,
                     })
                   }
-                />
+                >
+                  <option value="">Select a Format</option>
+                  {bookFormats.map((item, idx) => (
+                    <option key={idx} value={item}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
                 <br />
                 <label className="form-label">Overview:</label>
                 <input

@@ -24,6 +24,8 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
     imageurl: "",
   });
 
+  const bookFormats = ["Audio", "Hardback", "Paperback"];
+
   // Modal for SeeAllUsers
   const openUserModal = () => {
     setIsUserModalOpen(true);
@@ -44,7 +46,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
     <table>
       <thead>
         <tr>
-          <th>User ID</th>
+          <th>ID</th>
           <th>Username</th>
           <th>Email Address</th>
           <th>Status</th>
@@ -56,7 +58,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
             <td>{user.id}</td>
             <td>{user.username}</td>
             <td>{user.useremail}</td>
-            <td>{user.isadmin ? "Admin" : "Member"}</td>
+            <td>{user.isadmin ? "ADMIN" : "Member"}</td>
           </tr>
         ))}
       </tbody>
@@ -130,7 +132,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
   //New Product form
   const NewPostForm = (
     <form onSubmit={createPostHandleSubmit} className="modal-form">
-      <label className="form-label">Title:</label>
+      <label className="form-label">Title: </label>
       <input
         className="form-input"
         type="text"
@@ -164,7 +166,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
         value={productData.category}
         onChange={createPostHandleInputChange}
       >
-        <option value="">Select a category</option>
+        <option value="">Select a Category</option>
         {categoryNames.map((item, idx) => (
           <option key={idx} value={item.categoryname}>
             {item.categoryname}
@@ -173,13 +175,19 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
       </select>
       <br />
       <label className="form-label">Format:</label>
-      <input
-        className="form-input"
-        type="text"
+      <select
+        className="form-select"
         name="format"
         value={productData.format}
         onChange={createPostHandleInputChange}
-      />
+      >
+        <option value="">Select a Format</option>
+        {bookFormats.map((item, idx) => (
+          <option key={idx} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
       <br />
       <label className="form-label">Overview:</label>
       <input
@@ -212,7 +220,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
       <input
         className="form-input"
         type="text"
-        name="imgurl"
+        name="imageurl"
         value={productData.imageurl}
         onChange={createPostHandleInputChange}
       />
@@ -248,7 +256,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
         {profileData.isadmin ? (
           <section className="admin-profile">
             <h1 className="admin-title">Site Administration</h1>
-            <h4 onClick={openUserModal}>All User Information</h4>
+            <h4 onClick={openUserModal}>View User Information</h4>
             {isUserModalOpen && (
               <Modal title="All Users" closeModal={closeUserModal}>
                 {renderUserTable()}
@@ -256,9 +264,9 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
             )}
             <section>
               <Link to="/adminproducts" className="all-products-link">
-                <h4 className="all-product">All Products</h4>
+                <h4 className="all-product">View/Edit Products</h4>
               </Link>
-              <h4 onClick={openNewPostModal}>Create new Product</h4>
+              <h4 onClick={openNewPostModal}>Add New Product</h4>
               {isNewPostModalOpen && (
                 <Modal title="Create New Post" closeModal={closeNewPostModal}>
                   {isPostSubmitted ? (

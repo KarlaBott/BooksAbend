@@ -142,7 +142,10 @@ const App = () => {
           <Profile isLoggedIn={isLoggedIn} categoryNames={categoryNames} />
         </Route>
         <Route path="/adminproducts">
-          <AdminProducts isLoggedIn={isLoggedIn} />
+          <AdminProducts
+            isLoggedIn={isLoggedIn}
+            categoryNames={categoryNames}
+          />
         </Route>
 
         <Route path="/logout">
