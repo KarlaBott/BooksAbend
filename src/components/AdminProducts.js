@@ -61,7 +61,7 @@ const AdminProducts = ({ isLoggedIn }) => {
         )
       );
     } catch (error) {
-      console.error("Error editing product:", error);
+      console.error("ERROR: AdminProducts > handleEditFormSubmit:", error);
     }
   };
 
@@ -77,9 +77,10 @@ const AdminProducts = ({ isLoggedIn }) => {
       const productData = await fetchAllProducts();
       setProducts(productData.products);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("ERROR: AdminProducts > getProducts:", error);
     }
   };
+
   const getUsers = async () => {
     try {
       const userData = await fetchAllUsers();
@@ -95,9 +96,10 @@ const AdminProducts = ({ isLoggedIn }) => {
         }
       }
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.error("ERROR: AdminProducts > getUsers:", error);
     }
   };
+
   const handleDeactivateProduct = async (productId) => {
     try {
       await isActiveToFalse(productId);
@@ -105,9 +107,10 @@ const AdminProducts = ({ isLoggedIn }) => {
         prevProducts.filter((product) => product.id !== productId)
       );
     } catch (error) {
-      console.error("Error removing product:", error);
+      console.error("ERROR: AdminProducts > handleDeactivateProduct:", error);
     }
   };
+
   const handleReactivateProduct = async (productId) => {
     try {
       await isActivateToTrue(productId);
@@ -117,7 +120,7 @@ const AdminProducts = ({ isLoggedIn }) => {
         )
       );
     } catch (error) {
-      console.error("Error reactivating product:", error);
+      console.error("ERROR: AdminProducts >  handleReactivateProduct:", error);
     }
   };
 

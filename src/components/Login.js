@@ -15,18 +15,18 @@ function Login({ isLoggedIn, setIsLoggedIn, setIsAdmin }) {
   async function HandleForm(event) {
     event.preventDefault();
     let response = await login(Username, Password);
-    console.log("LI > response:", response);
+    // console.log("LI > response:", response);
 
     let curUserid = sessionStorage.getItem("BWUSERID");
-    console.log(
-      "Login > ID, NM:",
-      curUserid,
-      sessionStorage.getItem("BWUSERNAME")
-    );
+    // console.log(
+    //   "Login > ID, NM:",
+    //   curUserid,
+    //   sessionStorage.getItem("BWUSERNAME")
+    // );
     if (parseInt(curUserid) > 1) {
       setIsLoggedIn(true);
       if (response?.user?.isadmin) {
-        console.log("isAdmin set true");
+        // console.log("isAdmin set true");
         setIsAdmin(true);
       }
     } else {

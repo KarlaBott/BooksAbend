@@ -22,7 +22,7 @@ const Products = ({
   const disabledButtonText = isAdmin ? "Admin View" : "Out of Stock";
 
   const bookFormats = ["Audio", "Hardback", "Paperback"];
-  // categoryNames is an array of objects that look like {categoryname: "Biography"}, so extract an array just the values
+  // categoryNames is an array of objects ... {categoryname: "Biography"}, so extract an array of the categoryname values
   const catNameArray = categoryNames.map((item) => item.categoryname);
 
   useEffect(() => {
@@ -52,30 +52,30 @@ const Products = ({
   }, [forceRender]);
 
   const fetchProducts = async () => {
-    console.log("attempting fetchProducts ....");
+    // console.log("attempting fetchProducts ....");
     try {
       const response = await fetch(`api/products`);
       const result = await response.json();
       const productData = result.products;
-      console.log(result);
+      // console.log(result);
       setProducts(productData);
       setFullProducts(productData);
     } catch (error) {
-      console.error("failed to fetch products");
+      console.error("ERROR: Products > fetchProducts", error);
     }
   };
 
   async function addItemToCart(product) {
     try {
       const result = await addOneItemToCart(product);
-      console.log("addItemToCart > result:", result);
+      // console.log("addItemToCart > result:", result);
       if (result.success) {
         setItemCount(itemCount + 1);
-        console.log("update itemCount:", itemCount);
+        // console.log("update itemCount:", itemCount);
       }
       return result;
     } catch (error) {
-      console.error(`An error occured when adding item to cart.`);
+      console.error(`ERROR: Products > addItemToCart`, error);
     }
   }
 
@@ -87,7 +87,7 @@ const Products = ({
     } else {
       setSelFormat("All");
     }
-    console.log("selFormatHandler > ", selFormat);
+    // console.log("selFormatHandler > ", selFormat);
     setForceRender(true);
   };
 
@@ -99,7 +99,7 @@ const Products = ({
     } else {
       setSelCategory("All");
     }
-    console.log("selCategoryHandler > ", selCategory);
+    // console.log("selCategoryHandler > ", selCategory);
     setForceRender(true);
   };
 
@@ -121,6 +121,7 @@ const Products = ({
           className="form-select"
           name="format"
           id="formatFilter"
+          value={selFormat}
           onChange={selFormatHandler}
         >
           <option value="All">All Formats</option>
@@ -136,6 +137,7 @@ const Products = ({
           className="form-select"
           name="category"
           id="catFilter"
+          value={selCategory}
           onChange={selCategoryHandler}
         >
           <option value="All">All Categories</option>
@@ -145,6 +147,19 @@ const Products = ({
             </option>
           ))}
         </select>
+
+        <button
+          className="form-select"
+          id="formatFilter"
+          onClick={() => {
+            setSelCategory("All");
+            setSelFormat("All");
+            setProducts(fullProducts);
+            setForceRender(true);
+          }}
+        >
+          Reset Filters
+        </button>
       </section>
 
       <div id="productsBody">

@@ -82,7 +82,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
         }
       }
     } catch (error) {
-      console.error("ERROR fetchAllUsers: ", error);
+      console.error("ERROR: Profile > fetchAllUsers: ", error);
     }
   };
 
@@ -99,7 +99,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
 
     try {
       const createdProduct = await createProduct(productData);
-      console.log("Product created:", createdProduct);
+      // console.log("Product created:", createdProduct);
 
       setProductData({
         title: "",
@@ -114,7 +114,7 @@ const Profile = ({ isLoggedIn, categoryNames }) => {
       });
       setIsPostSubmitted(true);
     } catch (error) {
-      console.error("Error creating product:", error);
+      console.error("ERROR: Profile > createPostHandleSubmit", error);
     }
   };
 

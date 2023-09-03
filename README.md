@@ -8,7 +8,9 @@ This full stack app boilerplate consists of:
 
 You'll also find a bunch of convenient commands and workflows that will allow you to develop your app locally and deploy it to heroku. Let's dive in!
 
-# Local Development
+## Project contributors
+
+Karla Bottolfson, Batkhishig Choidagva, Nash Sigmon, Kaleb Stephens, Savhanna Stewart
 
 ## Getting Started
 

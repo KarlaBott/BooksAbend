@@ -18,9 +18,9 @@ const Nav = ({ isLoggedIn, isAdmin, itemCount, setItemCount }) => {
           // otherwise, setItemCount to zero
           setItemCount(0);
         }
-        console.log("NAV > itemCount:", itemCount);
+        // console.log("NAV > itemCount:", itemCount);
       } catch (error) {
-        console.error("failed to fetch CURRENT order");
+        console.error("ERROR: Nav > fetchCurrentOrder", error);
       }
     }
     fetchCurrentOrder();

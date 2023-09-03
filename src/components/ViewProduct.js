@@ -13,14 +13,14 @@ const ViewProduct = ({ isAdmin, currentProduct, itemCount, setItemCount }) => {
   async function addItemToCart(product) {
     try {
       const result = await addOneItemToCart(product);
-      console.log("addItemToCart > result:", result);
+      // console.log("addItemToCart > result:", result);
       if (result.success) {
         setItemCount(itemCount + 1);
-        console.log("update itemCount:", itemCount);
+        // console.log("update itemCount:", itemCount);
       }
       return result;
     } catch (error) {
-      console.error(`An error occured when adding item to cart.`);
+      console.error(`ERROR: ViewProduct > addItemToCart`, error);
     }
   }
 

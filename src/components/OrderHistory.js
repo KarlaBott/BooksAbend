@@ -10,15 +10,15 @@ const OrderHistory = ({ purchasedOrder, setPurchasedOrder }) => {
 
   useEffect(() => {
     async function fetchPurchasedOrders() {
-      console.log("fetchPurchasedOrders ...");
+      // console.log("fetchPurchasedOrders ...");
       try {
         const response = await fetch(`api/orders/status/purchased/${userId}`);
         const result = await response.json();
         const orderData = result.userOrders;
-        console.log(result);
+        // console.log(result);
         setOrders(orderData);
       } catch (error) {
-        console.error("failed to fetch PURCHASED orders");
+        console.error("ERROR: OrderHistory > fetchPurchasedOrders", error);
       }
     }
     fetchPurchasedOrders();

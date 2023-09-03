@@ -9,7 +9,7 @@ const Checkout = ({ itemCount, setItemCount }) => {
 
   useEffect(() => {
     async function fetchOrder() {
-      console.log("Checkout > fetchOrder CURRENT ...");
+      // console.log("Checkout > fetchOrder CURRENT ...");
       try {
         const response = await fetch(`api/orders/status/current/${userId}`);
         const result = await response.json();
@@ -22,7 +22,7 @@ const Checkout = ({ itemCount, setItemCount }) => {
           setOrder([]);
         }
       } catch (error) {
-        console.error("failed fetchOrder");
+        console.error("ERROR: Checkout > fetchOrder", error);
       }
     }
     fetchOrder();
@@ -31,7 +31,7 @@ const Checkout = ({ itemCount, setItemCount }) => {
   async function submitOrder(event) {
     event.preventDefault();
     try {
-      //console.log("Checkout > PATCH - orderid:", order.id);
+      // console.log("Checkout > PATCH - orderid:", order.id);
       const response = await fetch(`api/orders/${order.id}`, {
         method: "PATCH",
       });
@@ -42,7 +42,7 @@ const Checkout = ({ itemCount, setItemCount }) => {
         setItemCount(0);
       }
     } catch (error) {
-      console.error("failed to submit order");
+      console.error("ERROR: Checkout > submitOrder", error);
     }
   }
 

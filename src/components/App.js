@@ -54,7 +54,7 @@ const App = () => {
       const data = await fetchAllCategories();
       setCategoryNames(data.categories);
     } catch (error) {
-      console.error("ERROR fetchAllCategories: ", error);
+      console.error("ERROR: App > fetchAllCategories: ", error);
     }
   };
 

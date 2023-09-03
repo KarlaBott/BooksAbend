@@ -17,16 +17,16 @@ const NewCart = ({ itemCount, setItemCount }) => {
         const result = await response.json();
         const orderData = result.userOrders;
         // orderData is an array of CURRENT orders, and there should only ever be ONE order in it
-        console.log("NewCart > result:", result);
+        // console.log("NewCart > result:", result);
         if (orderData?.length > 0) {
           setCurrentOrder(orderData[0]);
           setItemCount(orderData[0].totalitemcount);
-          console.log("fetchCurrentOrder > itemCount:", itemCount);
+          // console.log("fetchCurrentOrder > itemCount:", itemCount);
         } else {
           setCurrentOrder([]);
         }
       } catch (error) {
-        console.error("failed to fetch CURRENT order");
+        console.error("ERROR: NewCart > fetchCurrentOrder", error);
       }
     }
     fetchCurrentOrder();
@@ -34,17 +34,17 @@ const NewCart = ({ itemCount, setItemCount }) => {
   }, [forceRender]);
 
   async function adjustCart(strAddSub, orderid, productid, curQty) {
-    console.log("adjustCart > parm:", strAddSub, orderid, productid, curQty);
+    // console.log("adjustCart > parm:", strAddSub, orderid, productid, curQty);
     try {
       // get product record for productid
       const prodFetch = await fetch(`api/products/${productid}`);
       const prodResponse = await prodFetch.json();
-      console.log("prodResponse", prodResponse);
+      // console.log("prodResponse", prodResponse);
       let response = {};
 
       // if DEL, then run DELETE to remove the orderdetail record from the order
       if (strAddSub == "DEL") {
-        console.log("adjustCart > DELETE");
+        // console.log("adjustCart > DELETE");
         response = await fetch(`api/orderdetails/${orderid}/${productid}`, {
           method: "DELETE",
         });
@@ -60,7 +60,7 @@ const NewCart = ({ itemCount, setItemCount }) => {
         }
         // else change the orderdetail quantity for this item
         let newQty = strAddSub == "ADD" ? curQty + 1 : curQty - 1;
-        console.log("adjustCart > PATCH > newQty:", newQty);
+        // console.log("adjustCart > PATCH > newQty:", newQty);
         response = await fetch(`api/orderdetails/${orderid}/${productid}`, {
           method: "PATCH",
           headers: {
@@ -70,11 +70,11 @@ const NewCart = ({ itemCount, setItemCount }) => {
         });
       }
       const result = await response.json();
-      console.log("adjustCart > result:", result);
+      // console.log("adjustCart > result:", result);
       setForceRender(true);
       return result;
     } catch (error) {
-      console.error(`An error occured when adjusting cart item.`);
+      console.error(`ERROR: NewCart > adjustCart`, error);
     }
   }
 
@@ -159,7 +159,6 @@ const NewCart = ({ itemCount, setItemCount }) => {
                 <button
                   className="cardButtons"
                   onClick={() => {
-                    // console.log(product);
                     adjustCart(
                       "ADD",
                       currentOrder.id,

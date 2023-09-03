@@ -4,7 +4,7 @@ export async function fetchAllProducts() {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("ERROR: axios > fetchAllProducts:", error);
     throw error;
   }
 }
@@ -13,10 +13,10 @@ export async function fetchAllCategories() {
   try {
     const response = await fetch("/api/products/categories");
     const data = await response.json();
-    console.log("fetchCat > data:", data);
+    // console.log("axios > fetchAllCategories > data:", data);
     return data;
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error("ERROR: axios > fetchAllCategories:", error);
     throw error;
   }
 }
@@ -27,7 +27,7 @@ export async function fetchSingleProduct(id) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("ERROR: axios >  fetchSingleProduct:", error);
     throw error;
   }
 }
@@ -43,13 +43,13 @@ export async function createProduct(productData) {
     });
 
     if (!response.ok) {
-      throw new Error("Failed to create product");
+      throw new Error("ERROR: axios > createProduct");
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error creating product:", error);
+    console.error("ERROR: axios > createProduct:", error);
     throw error;
   }
 }
@@ -71,7 +71,7 @@ export async function editProduct(id, updatedProductData) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error updating product:", error);
+    console.error("ERROR: axios > editProduct:", error);
     throw error;
   }
 }
@@ -84,7 +84,7 @@ export async function isActiveToFalse(id) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error deactivating product:", error);
+    console.error("ERROR: axios > isActiveToFalse:", error);
     throw error;
   }
 }
@@ -97,7 +97,7 @@ export async function isActivateToTrue(id) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error activating product:", error);
+    console.error("ERROR: axios > isActiveToTrue:", error);
     throw error;
   }
 }
