@@ -58,7 +58,7 @@ const Checkout = ({ itemCount, setItemCount }) => {
 
   return (
     <>
-      <div id="checkoutPage">
+      <div className="bgimage" id="checkoutPage">
         <section className="component">
           <div className="total">
             <h3>TOTAL</h3>
@@ -66,9 +66,12 @@ const Checkout = ({ itemCount, setItemCount }) => {
           </div>
 
           <div className="credit-card">
-            <h2>
-              Checkout - {order.totalitemcount} items - OrderId: {order.id}
-            </h2>
+            <h2>CHECKOUT - ORDER ID: {order.id}</h2>
+            <h2>{order.totalitemcount} item(s) included in this order</h2>
+            <h3 id="infoMsg">
+              (This is a mock form - no info needed. Review total and click
+              "PLACE ORDER" at the bottom.)
+            </h3>
             <form>
               <input type="text" placeholder={order.username.toUpperCase()} />
               <input type="text" placeholder="Email Address" />
@@ -85,10 +88,11 @@ const Checkout = ({ itemCount, setItemCount }) => {
               </div>
               {checkOutComplete ? (
                 <div className="line">
-                  <h3>
+                  <h3 id="infoMsg">
                     Thank you for shopping with us. Your order is complete.
-                    Please note your OrderId.
+                    {"\n"}
                   </h3>
+                  <h3 id="infoMsg">Please note your OrderId.</h3>
                 </div>
               ) : (
                 <button
