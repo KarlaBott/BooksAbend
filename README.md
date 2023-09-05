@@ -6,10 +6,10 @@
 
 In addition to `start:dev`, `client:build`, `client:dev` and `server:dev`, you have access to `db:build` which rebuilds the database, all the tables, and ensures that there is meaningful data present.
 
-To re-seed the DB: npm run db:build
-DB name is: bookwander (set up on PostrgrSQL)
-To start the server: npm run start (runs on Port 4000)
-To start the React client: npm run client:dev (runs on Port 3000)
+- To re-seed the DB: npm run db:build
+- DB name is: bookwander (set up on PostrgrSQL)
+- To start the server: npm run start (runs on Port 4000)
+- To start the React client: npm run client:dev (runs on Port 3000)
 
 # Let's Build a Full Stack Application
 
