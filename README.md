@@ -1,3 +1,16 @@
+## Deployed application:
+
+    booksabend.onrender.com
+
+## Command Line Tools (running the app in your terminal, locally)
+
+In addition to `start:dev`, `client:build`, `client:dev` and `server:dev`, you have access to `db:build` which rebuilds the database, all the tables, and ensures that there is meaningful data present.
+
+To re-seed the DB: npm run db:build
+DB name is: bookwander (set up on PostrgrSQL)
+To start the server: npm run start (runs on Port 4000)
+To start the React client: npm run client:dev (runs on Port 3000)
+
 # Let's Build a Full Stack Application
 
 This full stack app boilerplate consists of:
@@ -5,8 +18,7 @@ This full stack app boilerplate consists of:
 - an Express web server,
 - a PostgreSQL database instance,
 - and a React front-end
-
-You'll also find a bunch of convenient commands and workflows that will allow you to develop your app locally and deploy it to heroku. Let's dive in!
+  You'll also find a bunch of convenient commands and workflows that will allow you to develop your app locally and deploy it to heroku. Let's dive in!
 
 ## Project contributors
 
@@ -83,19 +95,21 @@ Inside `/api` you have `index.js` which is responsible for building the `apiRout
 
 Rounding things out, we've got the top level `index.js` that creates your Express Server. This should be responsible for setting up your API, starting your server, and connecting to your database. We've also got our `.gitignore`, `package-lock.json`, and `package.json` where you'll find the scripts necessary to get your app off the ground, as well as this `README.md`.
 
-## Command Line Tools
-
-In addition to `start:dev`, `client:build`, `client:dev` and `server:dev`, you have access to `db:build` which rebuilds the database, all the tables, and ensures that there is meaningful data present.
-
-To re-seed the DB: npm run db:build
-To start the server: npm run start
-To start the React client: npm run client:dev
-
 # Deployment
 
 ## Setting up onRender:
 
-## Setting up Heroku (no longer available for free, so app was deployed OnRender instead)
+- Connect your GitHub to Render.com
+- Choose "Only select respositories" and select your GitHub repo to deploy
+- NOTE: Make sure you choose the same Region for the DB and the WebService
+- Create PostgreSQL database instance ...
+- The External URL, set via Environment variable on Render, needs to have "?ssl=true" added to the end
+- The Environment var (on Render) that needs the above adjustment is: DATABASE_URL
+- Create Webservice ...
+- Build command: npm install && npm run db:build && npm run client:build
+- Start command: npm start
+
+## Setting up Heroku (no longer available for free, so app was deployed on Render instead)
 
 Setup your heroku project by choosing a site name and provisioning a postgres database. These commands create a heroku project backed by a postgres db instance which will live at https://project-name-goes-here.herokuapp.com. You'll want to replace `project-name-goes-here` with your selected project name.
 
