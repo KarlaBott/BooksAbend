@@ -68,8 +68,10 @@ const Signup = ({ isLoggedIn, setIsLoggedIn }) => {
       <img id="LoginIcon" src={TreeIcon} alt="Icon"></img>
       {!isLoggedIn ? (
         <div className="startShopping">
-          Need An Account?{"  "}
-          <Link to="/login">Login</Link>
+          Need An Account?
+          <Link style={{ fontWeight: 800 }} to="/login">
+            {"   "}LOGIN
+          </Link>
         </div>
       ) : (
         <div className="startShopping">

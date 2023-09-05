@@ -61,16 +61,23 @@ const Nav = ({ isLoggedIn, isAdmin, itemCount, setItemCount }) => {
               </Link>
             )}
 
-            {!isLoggedIn && (
-              <Link className="link" to="/login">
-                Login
-              </Link>
-            )}
-            {!isLoggedIn && (
-              <Link className="link" to="/signup">
-                SignUp
-              </Link>
-            )}
+            <div>
+              <span>
+                {!isLoggedIn && (
+                  <Link className="link" id="loginLeftItem" to="/login">
+                    Login /
+                  </Link>
+                )}
+              </span>
+              <span>
+                {!isLoggedIn && (
+                  <Link className="link" id="loginRightItem" to="/signup">
+                    SignUp
+                  </Link>
+                )}
+              </span>
+            </div>
+
             {isLoggedIn && !isAdmin && (
               <Link className="link" to="/orderhistory">
                 Order History

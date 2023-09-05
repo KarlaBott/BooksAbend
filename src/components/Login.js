@@ -69,8 +69,10 @@ function Login({ isLoggedIn, setIsLoggedIn, setIsAdmin }) {
       <img id="LoginIcon" src={TreeIcon} alt="Icon"></img>
       {!isLoggedIn ? (
         <div className="startShopping">
-          Need An Account?{"  "}
-          <Link to="/signup">REGISTER!</Link>
+          Need An Account?
+          <Link style={{ fontWeight: 800 }} to="/signup">
+            {"   "} SIGNUP!
+          </Link>
         </div>
       ) : (
         <div className="startShopping">
